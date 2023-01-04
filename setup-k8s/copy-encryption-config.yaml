@@ -1,0 +1,7 @@
+- hosts: controllers
+  remote_user: ubuntu
+  tasks:
+    - name: Copy Encryption Config
+      copy:
+        src: ../encryption-config/encryption-config.yaml
+        dest: ~/

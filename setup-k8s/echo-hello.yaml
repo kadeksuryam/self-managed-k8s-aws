@@ -1,0 +1,22 @@
+# - hosts: controllers
+#   remote_user: ubuntu
+#   tasks:
+#     - name : "echo"
+#       command: echo Hello
+# - hosts: "controller-{{ item }}"
+#   remote_user: ubuntu
+#   tasks:
+#     - name : "echo"
+#       command: echo Hello
+#   with_sequence: start=0 end=3
+
+- hosts: workers
+  serial: 1
+  remote_user: ubuntu
+  tasks:
+    - name: "debug"
+      ansible.builtin.debug:
+        msg: "test {{  groups['workers'].index(inventory_hostname) }}"
+      # loop_control:
+      #   index_var: index_no
+      

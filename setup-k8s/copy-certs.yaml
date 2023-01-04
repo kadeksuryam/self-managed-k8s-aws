@@ -1,0 +1,44 @@
+- hosts: workers
+  serial: 1
+  remote_user: ubuntu
+  tasks:
+    - name: Copy CA Cert
+      copy:
+        src: ../certs/ca/ca.pem
+        dest: ~/
+    - name: Copy Worker Certificate
+      copy:
+        src: "../certs/worker-node/kubelet/worker-{{ groups['workers'].index(inventory_hostname) }}.pem"
+        dest: "~/"
+    - name: Copy Worker Private Key
+      copy:
+        src: "../certs/worker-node/kubelet/worker-{{ groups['workers'].index(inventory_hostname) }}-key.pem"
+        dest: "~/"
+
+- hosts: controllers
+  remote_user: ubuntu
+  tasks:
+    - name: Copy CA Cert
+      copy:
+        src: ../certs/ca/ca.pem
+        dest: ~/
+    - name: Copy CA Private Key
+      copy:
+        src: ../certs/ca/ca-key.pem
+        dest: ~/
+    - name: Copy API Server Cert
+      copy:
+        src: "../certs/controller-node/api-server/api-server.pem"
+        dest: "~/"
+    - name: Copy API Server Private Key
+      copy:
+        src: "../certs/controller-node/api-server/api-server-key.pem"
+        dest: "~/"
+    - name: Copy Service Account Cert
+      copy:
+        src: "../certs/controller-node/controller-manager/service-account/service-account.pem"
+        dest: "~/"
+    - name: Copy Service Account Private Key
+      copy:
+        src: "../certs/controller-node/controller-manager/service-account/service-account-key.pem"
+        dest: "~/"

@@ -1,0 +1,16 @@
+{
+    "CN": "system:kube-scheduler",
+    "key": {
+      "algo": "rsa",
+      "size": 2048
+    },
+    "names": [
+      {
+        "C": "ID",
+        "L": "West Java",
+        "O": "system:kube-scheduler",
+        "OU": "Tugas Akhir 13519165",
+        "ST": "Bandung"
+      }
+    ]
+}
