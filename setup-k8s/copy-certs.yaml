@@ -2,6 +2,12 @@
   serial: 1
   remote_user: ubuntu
   tasks:
+    - name: Clean Up Home Dir
+      shell: |
+        sudo rm -rf ~/*
+    - name: Rename Hostname
+      shell: |
+        sudo hostnamectl set-hostname worker-{{ groups['workers'].index(inventory_hostname) }}
     - name: Copy CA Cert
       copy:
         src: ../certs/ca/ca.pem
@@ -18,6 +24,12 @@
 - hosts: controllers
   remote_user: ubuntu
   tasks:
+    - name: Clean Up Home Dir
+      shell: |
+        sudo rm -rf ~/*
+    - name: Rename Hostname
+      shell: |
+        sudo hostnamectl set-hostname controller-{{ groups['controllers'].index(inventory_hostname) }}
     - name: Copy CA Cert
       copy:
         src: ../certs/ca/ca.pem

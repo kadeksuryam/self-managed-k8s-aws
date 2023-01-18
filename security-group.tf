@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "allow_internal_ingress" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  cidr_blocks       = ["10.240.0.0/24", "10.200.0.0/16"]
+  cidr_blocks       = ["10.240.0.0/16", "10.200.0.0/16"]
   security_group_id = aws_security_group.k8s_node_sg.id
   type              = "ingress"
 }

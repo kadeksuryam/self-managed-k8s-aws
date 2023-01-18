@@ -10,8 +10,7 @@
     - name: Create etcd.service systemd unit file
       shell: |
         export INTERNAL_IP=$(hostname -I)
-        export ETCD_NAME=$(echo $INTERNAL_IP | xargs)
-        export ETCD_NAME=$(echo controller-$(echo -n $ETCD_NAME | tail -c 1))
+        export ETCD_NAME=$(hostname)
         cat <<EOF | sudo tee /etc/systemd/system/etcd.service
         [Unit]
         Description=etcd

@@ -3,7 +3,7 @@ output "k8s_address" {
 }
 
 output "worker_internal_address" {
-    value = aws_instance.k8s_worker[*].public_ip
+    value = aws_instance.k8s_worker[*].private_ip
 }
 
 output "worker_external_address" {

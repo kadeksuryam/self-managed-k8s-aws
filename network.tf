@@ -1,5 +1,7 @@
 resource "aws_vpc" "k8s_vpc" {
   cidr_block = var.vpc_cidr_block
+  enable_dns_support = true
+  enable_dns_hostnames = true
 }
 
 resource "aws_subnet" "public_k8s_subnet" {
@@ -20,6 +22,13 @@ resource "aws_route_table" "k8s_rt" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.k8s_igw.id
   }
+}
+
+resource "aws_route" "pod_route" {
+  count = 3
+  route_table_id = aws_route_table.k8s_rt.id
+  destination_cidr_block = "10.200.${count.index}.0/24"
+  network_interface_id = element(aws_instance.k8s_worker[*].primary_network_interface_id, count.index)
 }
 
 resource "aws_route_table_association" "subnet_route" {

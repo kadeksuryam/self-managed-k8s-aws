@@ -67,13 +67,13 @@ gen_worker_node_cert() {
         INTERNAL_IP=$(terraform output -json | jq -r ".worker_internal_address.value[${i}]")
 
         cfssl gencert \
-        -ca=certs/ca/ca.pem \
-        -ca-key=certs/ca/ca-key.pem \
-        -config=pki-config/ca/ca-config.json \
-        -hostname=worker-${i},${EXTERNAL_IP},${INTERNAL_IP} \
-        -profile=kubernetes \
-        pki-config/worker-node/kubelet/worker-${i}-csr.json | cfssljson -bare certs/worker-node/kubelet/worker-${i}
-        done
+            -ca=certs/ca/ca.pem \
+            -ca-key=certs/ca/ca-key.pem \
+            -config=pki-config/ca/ca-config.json \
+            -hostname=worker-${i},${EXTERNAL_IP},${INTERNAL_IP} \
+            -profile=kubernetes \
+            pki-config/worker-node/kubelet/worker-${i}-csr.json | cfssljson -bare certs/worker-node/kubelet/worker-${i}
+    done
     
     # gen kube-proxy cert
     mkdir -p certs/worker-node/kube-proxy

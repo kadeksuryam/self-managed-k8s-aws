@@ -37,4 +37,5 @@ ssh-key
 kubeconfig
 certs
 encryption-config
-
+**/full-script/*
+!full-script/*.sh
